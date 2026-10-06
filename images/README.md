@@ -48,6 +48,18 @@ Every image spot is currently a gray placeholder `<div>`. Replace the whole `<di
 <img class="media media--portrait" src="images/about-portrait.jpg" alt="Zan Dean" />
 ```
 
+**D. Case-study gallery** (the "Gallery" grid near the bottom of each `work/<slug>.html`) — note the `../`. Each page starts with 6 placeholder tiles; swap each one, delete any you don't need, or copy a line to add more:
+```html
+<!-- replace this -->
+<div class="ph gallery__item" aria-label="Placeholder gallery image">Image 1<br />(upload)</div>
+<!-- with this -->
+<img class="media gallery__item" src="../images/black-koi/pond-build-01.jpg" alt="Waterfall install in progress" loading="lazy" />
+```
+Tiles are cropped to 4:3 in the grid, and clicking one opens the full, uncropped image in a lightbox (arrow keys to browse, Esc to close). Optional extras:
+- Add `gallery__item--wide` to the class list to make a tile span two columns (good for a hero shot).
+- Add `data-full="../images/black-koi/pond-build-01-large.jpg"` to show a bigger file in the lightbox than in the grid.
+- Gallery images can go in a subfolder per project (`images/black-koi/...`) to keep things tidy. The `alt` text doubles as the lightbox caption.
+
 The `.media` / `.media--wide` / `.media--portrait` classes (in `css/style.css`) handle sizing, cropping, and the rounded border, so every image lands consistent.
 
 ## 4. Where each image goes (suggested filenames)
@@ -74,3 +86,10 @@ You can use the same image file for a project's card and its hero, or different 
 ## Tip: write good alt text
 
 The `alt=""` text is read by screen readers and shows if an image fails to load. Describe what the image is, e.g. `alt="Mojo Girl window mural"`, not `alt="image"`.
+
+## Current layout
+
+- `<project>NN.webp` (e.g. `mojo07.webp`) are the gallery images. Each case study's Gallery lists them in number order.
+- `thumbs/<page-slug>.webp` are 1600x1000 logo thumbnails built from each project's logo. They're used for the portfolio/home cards and the top image of each case study. To change one, overwrite the file (keep 16:10) or point the `src` at a different image.
+- Gallery tiles crop to 4:3. Tiles with `gallery__item--contain` (logos, slides, banners) show the whole image padded on its own background color; `gallery__item--top` (full-page website screenshots, documents) crops from the top. In the lightbox, tall screenshots scroll.
+- The Mojo page has a **Slide Deck** viewer (above the Gallery) for `mojo23`–`mojo56`. To add a slide, copy a `<img class="deck__slide" ... hidden />` line inside `.deck__frame` and change the `src`/`alt`; slides play in HTML order.
