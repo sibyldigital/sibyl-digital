@@ -224,6 +224,60 @@ h1, h2, h3, h4 {
 .media--wide { aspect-ratio: 16 / 10; }
 .media--portrait { aspect-ratio: 4 / 5; }
 
+/* ---- Case study gallery ------------------------------------------------- */
+/* Grid of project images. Tiles crop to 4:3; clicking an <img> opens the
+   lightbox (js/main.js) showing the full, uncropped image.
+   Add .gallery__item--wide to a tile to span two columns. */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.gallery__item { aspect-ratio: 4 / 3; height: 100%; }
+.gallery__item--wide { grid-column: span 2; aspect-ratio: auto; }
+.gallery img.gallery__item { cursor: zoom-in; transition: opacity 0.2s ease; }
+.gallery img.gallery__item:hover { opacity: 0.88; }
+.gallery img.gallery__item:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(20, 28, 24, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 4rem;
+}
+.lightbox[hidden] { display: none; }
+.lightbox__figure { margin: 0; max-width: 100%; max-height: 100%; text-align: center; }
+.lightbox__img {
+  max-width: 100%;
+  max-height: calc(100vh - 9rem);
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+.lightbox__caption { color: #eef2ee; font-size: 0.9rem; margin-top: 0.75rem; }
+.lightbox button {
+  position: absolute;
+  background: none;
+  border: 0;
+  color: var(--white);
+  font: inherit;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.lightbox button:hover, .lightbox button:focus-visible { opacity: 1; }
+.lightbox__close { top: 0.75rem; right: 0.75rem; }
+.lightbox__prev  { left: 0.5rem; top: 50%; transform: translateY(-50%); }
+.lightbox__next  { right: 0.5rem; top: 50%; transform: translateY(-50%); }
+.lightbox__count { position: absolute; top: 1.2rem; left: 1.25rem; color: #cfd6d1; font-size: 0.85rem; }
+body.lightbox-open { overflow: hidden; }
+
 /* ---- Case study callout ------------------------------------------------- */
 .case {
   background: var(--green);
@@ -440,6 +494,9 @@ form .btn { margin-top: 1.5rem; }
   .split--reverse .split__media { order: 0; }
   .case ul { columns: 1; }
   form .row { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .lightbox { padding: 3.5rem 0.75rem; }
+  .lightbox__prev, .lightbox__next { top: auto; bottom: 0.75rem; transform: none; }
 
   .nav-toggle { display: block; }
   .nav {

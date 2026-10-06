@@ -48,6 +48,18 @@ Every image spot is currently a gray placeholder `<div>`. Replace the whole `<di
 <img class="media media--portrait" src="images/about-portrait.jpg" alt="Zan Dean" />
 ```
 
+**D. Case-study gallery** (the "Gallery" grid near the bottom of each `work/<slug>.html`) — note the `../`. Each page starts with 6 placeholder tiles; swap each one, delete any you don't need, or copy a line to add more:
+```html
+<!-- replace this -->
+<div class="ph gallery__item" aria-label="Placeholder gallery image">Image 1<br />(upload)</div>
+<!-- with this -->
+<img class="media gallery__item" src="../images/black-koi/pond-build-01.jpg" alt="Waterfall install in progress" loading="lazy" />
+```
+Tiles are cropped to 4:3 in the grid, and clicking one opens the full, uncropped image in a lightbox (arrow keys to browse, Esc to close). Optional extras:
+- Add `gallery__item--wide` to the class list to make a tile span two columns (good for a hero shot).
+- Add `data-full="../images/black-koi/pond-build-01-large.jpg"` to show a bigger file in the lightbox than in the grid.
+- Gallery images can go in a subfolder per project (`images/black-koi/...`) to keep things tidy. The `alt` text doubles as the lightbox caption.
+
 The `.media` / `.media--wide` / `.media--portrait` classes (in `css/style.css`) handle sizing, cropping, and the rounded border, so every image lands consistent.
 
 ## 4. Where each image goes (suggested filenames)

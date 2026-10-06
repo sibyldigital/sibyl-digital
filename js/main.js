@@ -78,3 +78,86 @@
     window.location.href = 'mailto:sibyldigital@gmail.com?subject=' + subject + '&body=' + body;
   });
 })();
+
+// Case study gallery lightbox.
+// Any <img> inside a .gallery opens full-size on click / Enter.
+// Optional data-full="..." points the lightbox at a larger file than the tile.
+// Arrow keys step through the gallery, Escape closes.
+(function () {
+  var imgs = [].slice.call(document.querySelectorAll('.gallery img'));
+  if (!imgs.length) return;
+
+  var box = document.createElement('div');
+  box.className = 'lightbox';
+  box.hidden = true;
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-modal', 'true');
+  box.setAttribute('aria-label', 'Image viewer');
+  box.innerHTML =
+    '<span class="lightbox__count"></span>' +
+    '<button class="lightbox__close" aria-label="Close">&times;</button>' +
+    '<button class="lightbox__prev" aria-label="Previous image">&larr;</button>' +
+    '<button class="lightbox__next" aria-label="Next image">&rarr;</button>' +
+    '<figure class="lightbox__figure"><img class="lightbox__img" alt="" />' +
+    '<figcaption class="lightbox__caption"></figcaption></figure>';
+  document.body.appendChild(box);
+
+  var view = box.querySelector('.lightbox__img');
+  var caption = box.querySelector('.lightbox__caption');
+  var count = box.querySelector('.lightbox__count');
+  var prev = box.querySelector('.lightbox__prev');
+  var next = box.querySelector('.lightbox__next');
+  var current = 0;
+  var opener = null;
+
+  if (imgs.length < 2) { prev.hidden = true; next.hidden = true; }
+
+  function show(i) {
+    current = (i + imgs.length) % imgs.length;
+    var img = imgs[current];
+    view.src = img.getAttribute('data-full') || img.currentSrc || img.src;
+    view.alt = img.alt;
+    caption.textContent = img.alt;
+    count.textContent = imgs.length > 1 ? (current + 1) + ' / ' + imgs.length : '';
+  }
+  function open(i) {
+    opener = document.activeElement;
+    show(i);
+    box.hidden = false;
+    document.body.classList.add('lightbox-open');
+    box.querySelector('.lightbox__close').focus();
+  }
+  function close() {
+    box.hidden = true;
+    document.body.classList.remove('lightbox-open');
+    view.removeAttribute('src');
+    if (opener) opener.focus();
+  }
+
+  imgs.forEach(function (img, i) {
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('role', 'button');
+    img.addEventListener('click', function () { open(i); });
+    img.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+    });
+  });
+
+  box.querySelector('.lightbox__close').addEventListener('click', close);
+  prev.addEventListener('click', function () { show(current - 1); });
+  next.addEventListener('click', function () { show(current + 1); });
+  box.addEventListener('click', function (e) { if (e.target === box) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (box.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'ArrowRight') show(current + 1);
+    else if (e.key === 'Tab') {
+      // Keep focus inside the dialog
+      var f = [].slice.call(box.querySelectorAll('button')).filter(function (b) { return !b.hidden; });
+      var idx = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(idx + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+})();
