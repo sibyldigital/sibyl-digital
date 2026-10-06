@@ -340,7 +340,16 @@ body.lightbox-open { overflow: hidden; }
 .article--feature { grid-column: 1 / -1; background: var(--green); border-color: var(--green); color: #eef2ee; }
 .article--feature .article__title { color: var(--white); font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
 .article--feature .article__pub, .article--feature .article__link { color: #f2c9cd; }
-.article__pub { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mauve); }
+.article__pub { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mauve); }
+.article__badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #f2c9cd;
+  color: var(--green);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
 .article__title { font-size: 1.05rem; font-weight: 600; line-height: 1.35; }
 .article__summary { font-size: 0.92rem; line-height: 1.55; opacity: 0.9; flex: 1; }
 .article__link { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rose); }
