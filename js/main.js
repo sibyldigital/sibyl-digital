@@ -164,3 +164,57 @@
     }
   });
 })();
+
+// Slide deck viewer: one slide at a time, with buttons, arrow keys,
+// swipe, and full screen. Slides are the .deck__slide images in order.
+(function () {
+  document.querySelectorAll('.deck').forEach(function (deck) {
+    var slides = [].slice.call(deck.querySelectorAll('.deck__slide'));
+    if (!slides.length) return;
+    var prev = deck.querySelector('.deck__prev');
+    var next = deck.querySelector('.deck__next');
+    var count = deck.querySelector('.deck__count');
+    var full = deck.querySelector('.deck__full');
+    var current = 0;
+
+    function show(i) {
+      current = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach(function (s, k) { s.hidden = k !== current; });
+      // Warm up the next slide so flipping feels instant
+      if (slides[current + 1]) slides[current + 1].loading = 'eager';
+      count.textContent = (current + 1) + ' / ' + slides.length;
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+    }
+
+    prev.addEventListener('click', function () { show(current - 1); });
+    next.addEventListener('click', function () { show(current + 1); });
+    deck.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    });
+
+    var startX = null;
+    var frame = deck.querySelector('.deck__frame');
+    frame.addEventListener('pointerdown', function (e) { startX = e.clientX; });
+    frame.addEventListener('pointerup', function (e) {
+      if (startX === null) return;
+      var dx = e.clientX - startX; startX = null;
+      if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+    });
+
+    if (full && deck.requestFullscreen) {
+      full.addEventListener('click', function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else deck.requestFullscreen();
+      });
+      document.addEventListener('fullscreenchange', function () {
+        full.textContent = document.fullscreenElement === deck ? 'Exit full screen' : 'Full screen';
+      });
+    } else if (full) {
+      full.hidden = true;
+    }
+
+    show(0);
+  });
+})();

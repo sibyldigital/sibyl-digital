@@ -286,6 +286,45 @@ body.lightbox-open { overflow: hidden; }
 .lightbox--scroll .lightbox__figure { max-height: calc(100vh - 7rem); overflow-y: auto; }
 .lightbox--scroll .lightbox__img { width: min(100%, 960px); max-height: none; }
 
+/* ---- Slide deck viewer (js/main.js) ------------------------------------ */
+/* One slide at a time in a 16:9 frame. Add slides as more <img class="deck__slide" hidden>
+   lines inside .deck__frame; order in the HTML is slide order. */
+.deck { margin-top: 1.25rem; outline: none; }
+.deck:focus-visible .deck__frame { outline: 2px solid var(--rose); outline-offset: 3px; }
+.deck__frame {
+  aspect-ratio: 16 / 9;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.deck__slide { width: 100%; height: 100%; object-fit: contain; display: block; }
+.deck__slide[hidden] { display: none; }
+.deck__controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 0.9rem;
+}
+.deck__controls button {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--green);
+  font: inherit;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+}
+.deck__controls button:hover { border-color: var(--rose); color: var(--rose); }
+.deck__controls button:disabled { opacity: 0.35; cursor: default; border-color: var(--line); color: var(--green); }
+.deck__count { min-width: 4.5rem; text-align: center; font-size: 0.9rem; color: var(--green-soft); }
+.deck__full { margin-left: auto; font-size: 0.8rem !important; letter-spacing: 0.06em; text-transform: uppercase; }
+.deck:fullscreen { background: #111; display: flex; flex-direction: column; justify-content: center; padding: 1rem; }
+.deck:fullscreen .deck__frame { aspect-ratio: auto; flex: 1; border: 0; background: #111; }
+.deck:fullscreen .deck__controls button, .deck:fullscreen .deck__count { color: #eef2ee; border-color: #444; }
+
 /* ---- Case study callout ------------------------------------------------- */
 .case {
   background: var(--green);
