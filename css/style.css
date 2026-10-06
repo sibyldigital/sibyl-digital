@@ -344,11 +344,11 @@ body.lightbox-open { overflow: hidden; }
 .article__badge {
   display: inline-block;
   padding: 0.2rem 0.55rem;
-  border-radius: 999px;
+  border-radius: 10px;
   background: #f2c9cd;
   color: var(--green);
   letter-spacing: 0.08em;
-  white-space: nowrap;
+  line-height: 1.5;
 }
 .article__title { font-size: 1.05rem; font-weight: 600; line-height: 1.35; }
 .article__summary { font-size: 0.92rem; line-height: 1.55; opacity: 0.9; flex: 1; }
