@@ -80,11 +80,11 @@
 })();
 
 // Case study gallery lightbox.
-// Any <img> inside a .gallery opens full-size on click / Enter.
+// Any <img> inside a .gallery or .compare opens full-size on click / Enter.
 // Optional data-full="..." points the lightbox at a larger file than the tile.
 // Arrow keys step through the gallery, Escape closes.
 (function () {
-  var imgs = [].slice.call(document.querySelectorAll('.gallery img'));
+  var imgs = [].slice.call(document.querySelectorAll('.gallery img, .compare img'));
   if (!imgs.length) return;
 
   var box = document.createElement('div');

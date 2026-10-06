@@ -286,6 +286,36 @@ body.lightbox-open { overflow: hidden; }
 .lightbox--scroll .lightbox__figure { max-height: calc(100vh - 7rem); overflow-y: auto; }
 .lightbox--scroll .lightbox__img { width: min(100%, 960px); max-height: none; }
 
+/* ---- Before / after website comparison --------------------------------- */
+/* Two scrollable "browser windows" side by side; stacks on mobile. */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.25rem; }
+.compare__item { margin: 0; }
+.compare__label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--green-soft);
+  margin-bottom: 0.5rem;
+}
+.compare__label span { font-weight: 400; letter-spacing: 0.04em; text-transform: none; }
+.compare__label--after { color: var(--rose); }
+.compare__window {
+  height: clamp(420px, 70vh, 680px);
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-top: 22px solid var(--line);  /* browser-bar hint */
+  border-radius: var(--radius);
+  background: var(--white);
+  overscroll-behavior: contain;
+}
+.compare__window:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.compare__window img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+.compare__hint { font-size: 0.85rem; color: var(--green-soft); margin-top: 0.75rem; }
+
 /* ---- Slide deck viewer (js/main.js) ------------------------------------ */
 /* One slide at a time in a 16:9 frame. Add slides as more <img class="deck__slide" hidden>
    lines inside .deck__frame; order in the HTML is slide order. */
@@ -542,6 +572,7 @@ form .btn { margin-top: 1.5rem; }
   .case ul { columns: 1; }
   form .row { grid-template-columns: 1fr; }
   .gallery { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .compare { grid-template-columns: 1fr; }
   .lightbox { padding: 3.5rem 0.75rem; }
   .lightbox__prev, .lightbox__next { top: auto; bottom: 0.75rem; transform: none; }
 
