@@ -220,6 +220,7 @@ h1, h2, h3, h4 {
   object-fit: cover;
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  height: auto;
 }
 .media--wide { aspect-ratio: 16 / 10; }
 .media--portrait { aspect-ratio: 4 / 5; }
@@ -234,8 +235,12 @@ h1, h2, h3, h4 {
   gap: 1rem;
   margin-top: 1.25rem;
 }
-.gallery__item { aspect-ratio: 4 / 3; height: 100%; }
+.gallery__item { aspect-ratio: 4 / 3; }
 .gallery__item--wide { grid-column: span 2; aspect-ratio: auto; }
+/* Tall images (full-page screenshots, posters): show the top, not the middle. */
+.gallery__item--top { object-position: top; }
+/* Logos, square art and wide banners: show the whole image, padded on its own background. */
+.gallery__item--contain { object-fit: contain; padding: 0.75rem; background: #eef1f4; }
 .gallery img.gallery__item { cursor: zoom-in; transition: opacity 0.2s ease; }
 .gallery img.gallery__item:hover { opacity: 0.88; }
 .gallery img.gallery__item:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
@@ -277,6 +282,9 @@ h1, h2, h3, h4 {
 .lightbox__next  { right: 0.5rem; top: 50%; transform: translateY(-50%); }
 .lightbox__count { position: absolute; top: 1.2rem; left: 1.25rem; color: #cfd6d1; font-size: 0.85rem; }
 body.lightbox-open { overflow: hidden; }
+/* Tall images scroll inside the lightbox at a readable width. */
+.lightbox--scroll .lightbox__figure { max-height: calc(100vh - 7rem); overflow-y: auto; }
+.lightbox--scroll .lightbox__img { width: min(100%, 960px); max-height: none; }
 
 /* ---- Case study callout ------------------------------------------------- */
 .case {

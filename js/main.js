@@ -118,6 +118,9 @@
     view.src = img.getAttribute('data-full') || img.currentSrc || img.src;
     view.alt = img.alt;
     caption.textContent = img.alt;
+    // Full-page screenshots and other tall images scroll instead of shrinking to a sliver
+    box.classList.toggle('lightbox--scroll', (img.naturalHeight || +img.getAttribute('height')) > (img.naturalWidth || +img.getAttribute('width')) * 1.6);
+    box.querySelector('.lightbox__figure').scrollTop = 0;
     count.textContent = imgs.length > 1 ? (current + 1) + ' / ' + imgs.length : '';
   }
   function open(i) {

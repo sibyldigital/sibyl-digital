@@ -86,3 +86,9 @@ You can use the same image file for a project's card and its hero, or different 
 ## Tip: write good alt text
 
 The `alt=""` text is read by screen readers and shows if an image fails to load. Describe what the image is, e.g. `alt="Mojo Girl window mural"`, not `alt="image"`.
+
+## Current layout
+
+- `<project>NN.webp` (e.g. `mojo07.webp`) are the gallery images. Each case study's Gallery lists them in number order.
+- `thumbs/<page-slug>.webp` are 1600x1000 logo thumbnails built from each project's logo. They're used for the portfolio/home cards and the top image of each case study. To change one, overwrite the file (keep 16:10) or point the `src` at a different image.
+- Gallery tiles crop to 4:3. Tiles with `gallery__item--contain` (logos, slides, banners) show the whole image padded on its own background color; `gallery__item--top` (full-page website screenshots, documents) crops from the top. In the lightbox, tall screenshots scroll.
