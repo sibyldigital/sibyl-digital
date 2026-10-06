@@ -212,6 +212,18 @@ h1, h2, h3, h4 {
 }
 .ph--wide { aspect-ratio: 16 / 10; }
 
+/* Real images: drop these in where a .ph placeholder was.
+   Use .media--wide for covers, .media--portrait for the About/Home photos. */
+.media {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.media--wide { aspect-ratio: 16 / 10; }
+.media--portrait { aspect-ratio: 4 / 5; }
+
 /* ---- Case study callout ------------------------------------------------- */
 .case {
   background: var(--green);
